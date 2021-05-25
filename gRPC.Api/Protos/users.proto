@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option csharp_namespace = "gRPC.Api.Protos";
+
+
+service Users {
+	rpc AddUser (AddRequest) returns (Replay);
+	rpc DeleteUser (RemoveRequest) returns (Replay);
+	rpc EditUser (EditRequest) returns (Replay);
+	rpc GetUsers (Empty) returns (UsersReplay);
+}
+
+message AddRequest {
+	string username = 1;
+	string password = 2;
+}
+message RemoveRequest {
+	int32 id = 1;
+}
+
+message EditRequest {
+	int32 id = 1;
+	string username = 2;
+	string password = 3;
+}
+
+message Replay {
+	bool success = 1;
+	string message = 2;
+}
+
+message UsersReplay{
+	message User{
+		int32 id = 1;
+		string username = 2;
+		string password = 3;
+	}
+	repeated User Users = 1;
+}
+
+message Empty{
+}
+
